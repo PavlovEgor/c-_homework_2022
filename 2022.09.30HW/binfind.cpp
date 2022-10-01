@@ -3,11 +3,9 @@
 #include <algorithm>
 #include <vector>
 
-
-
 int bin_search(std::vector<int> v, int n, int num){
     int L = 0;
-    int R = n-1;
+    int R = n - 1;
     while(L <= R){
         int m = (L + R) / 2;
         if (v[m] < num)  {L = m + 1;}
@@ -38,5 +36,4 @@ int main(){
 	std::cin>>num;
 	if (bin_search(seq, n, num)!=-1) std::cout << "Yes";
 	else std::cout<<"No";
-
 }
