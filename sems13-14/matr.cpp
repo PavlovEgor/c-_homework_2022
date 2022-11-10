@@ -1,6 +1,11 @@
 #include <vector>
 #include <iostream>
 
+/*
+Павлов Егор. Классы матриц и векторов.
+Коректность матриц проверяется вручную функцией checking_correctness.
+Проверка корректности всех имеющихся операций производится при вычислении.
+ */
 
 class Vec{
   public:
@@ -11,8 +16,9 @@ class Vec{
         int n = value.size();
 
         if (n != second_vec.value.size()){
-
-          std::runtime_error("Incorrect vec concatenation");
+          std::cout << "Incorrect ^operator between vectors" << '\n';
+          std::runtime_error("Incorrect operation");
+          return 0;
 
         } else {
 
@@ -45,8 +51,10 @@ class Vec{
         int n = value.size();
 
         if (n != second_vec.value.size()){
-
-          std::runtime_error("Incorrect vec concatenation");
+          Vec v;
+          std::cout << "Incorrect *operator between vectors" << '\n';
+          std::runtime_error("Incorrect operation");
+          return v;
 
         } else {
 
@@ -68,8 +76,10 @@ class Vec{
         int n = value.size();
 
         if (n != second_vec.value.size()){
-
-          std::runtime_error("Incorrect vec concatenation");
+          Vec v;
+          std::cout << "Incorrect +operator between vectors" << '\n';
+          std::runtime_error("Incorrect operation");
+          return v;
 
         } else {
 
@@ -91,7 +101,10 @@ class Vec{
 
         if (n != second_vec.value.size()){
 
-          std::runtime_error("Incorrect vec concatenation");
+          Vec v;
+          std::cout << "Incorrect -operator between vectors" << '\n';
+          std::runtime_error("Incorrect operation");
+          return v;
 
         } else {
 
@@ -120,11 +133,16 @@ class Matrix{
   std::vector<std::vector<double>> value;
 
 
+
+
   Matrix operator+(Matrix second_table) {
       int n = value.size(); // высота матрицы
       int m = value[0].size(); // длина
       if (n != second_table.value.size() | m != second_table.value[0].size()){
-        std::runtime_error("Incorrect sum"); // корректрность сложения
+        Matrix Mat;
+        std::cout << "Incorrect +operator between Matrixes" << '\n';
+        std::runtime_error("Incorrect operation");
+        return Mat;
       } else {
           std::vector<std::vector<double>> new_value = {};
           std::vector<double> new_line;
@@ -147,7 +165,10 @@ class Matrix{
         int n = value.size(); // высота матрицы
         int m = value[0].size(); // длина
         if (m != second_table.value[0].size()){
-          std::runtime_error("Incorrect mat concatenation");
+          Matrix Mat;
+          std::cout << "Incorrect *operator between Matrixes" << '\n';
+          std::runtime_error("Incorrect operation");
+          return Mat;
         } else {
             std::vector<std::vector<double>> new_value = {};
             std::vector<double> new_line;
@@ -194,6 +215,7 @@ std::ostream& operator<< (std::ostream &out, const Vec &vec)
     for (int i=0; i<n; i++){
       out << vec.value[i] << ' ';
     }
+
     return out;
 }
 
@@ -225,16 +247,28 @@ std::istream& operator>> (std::istream& cin, Vec &vec)
   }
 
   vec.value = new_value;
+
   return cin;
 }
 
+void checking_correctness(Matrix Mat){
+  int n = Mat.value[0].size();
+  int cur;
+  for (int i = 1; i < Mat.value.size(); i++) {
+    cur = Mat.value[i].size();
+    if (cur != n) {
+      std::cout << "Incorrect input for Matrixes" << '\n';
+      std::runtime_error("Incorrect operation");
+    }
+  }
+};
 
 
 
 
 int main() {
   Matrix M_1;
-  M_1.value = {{1, 2}, {3, 4}};
+  M_1.value = {{1, 2}, {3, 4}, {5, 6}};
 
   Matrix M_2;
   M_2.value = {{3, 4}, {1, 2}};
